@@ -1,45 +1,9 @@
 from funcionesAuxiliares import *
-'''
-#1
-matrix = [
-    [1,0,0],
-    [1,0,1]
-]
-#2
-matrix = [
-    [0,2,2,2],
-    [1,1,1,0],
-    [1,0,2,0]
-]
 
-#3
-matrix = [
-    [0,1,0,2,2],
-    [3,2,0,1,3],
-    [2,3,3,3,2],
-    [1,1,1,0,0]
-]
+#Algoritmo de fuerza bruta
 
-#4
-matrix = [
-    [4,3,2,0,4,3],
-    [0,0,1,0,2,2],
-    [1,4,0,3,2,2],
-    [1,4,1,4,0,1],
-    [2,4,1,3,3,3]
-]
-
-
-#Plantilla
-matrix = [
-    [],
-    [],
-    [],
-    []
-]
-'''
-#Algoritmo principal
-def fuerzaBruta(matrix)->list:
+def fuerzaBruta(matrix):
+    
     set = len(matrix) - 1
     filas = set+1
     columnas = filas +1 
@@ -91,13 +55,9 @@ def fuerzaBruta(matrix)->list:
 
 
 
-def main()->None:
-    matrix = [
-        [0,2,2,2],
-        [1,1,1,0],
-        [1,0,2,0]
-    ]
-    soluciones = fuerzaBruta(matrix)
+def main():
+
+    soluciones = fuerzaBruta(devolverMatriz("3x4"))
     print('Soluciones: \n')
     print(soluciones)
 

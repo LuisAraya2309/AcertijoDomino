@@ -1,68 +1,37 @@
 from funcionesAuxiliares import *
-'''
-#1
-matrix = [
-    [1,0,0],
-    [1,0,1]
-]
-#2
-matrix = [
-    [0,2,2,2],
-    [1,1,1,0],
-    [1,0,2,0]
-]
 
-#3
-matrix = [
-    [0,1,0,2,2],
-    [3,2,0,1,3],
-    [2,3,3,3,2],
-    [1,1,1,0,0]
-]
+#Algoritmo de backtracking
 
-#4
-matrix = [
-    [4,3,2,0,4,3],
-    [0,0,1,0,2,2],
-    [1,4,0,3,2,2],
-    [1,4,1,4,0,1],
-    [2,4,1,3,3,3]
-]
-
-
-#Plantilla
-matrix = [
-    [],
-    [],
-    [],
-    []
-]
-'''
-
-#Algoritmo principal
-def backtracking(matrix)->list:
+def backtracking(matrix):
+    
+    # Instanciamiento de variables
     set = len(matrix) - 1
     filas = set+1
     columnas = filas +1 
     bitsDisponibles = (filas * columnas)//2
     combinaciones = 2**(bitsDisponibles)
     soluciones = []
-    posiblesSoluciones = []
     
+    posiblesSoluciones = []
+    #Se llena la lista con las posibles soluciones del algoritmo
     for i in range(0,combinaciones):
         posibleSolucion = decimalABinario(i,bitsDisponibles)
         posiblesSoluciones.append(posibleSolucion)
     
-    print(posiblesSoluciones)
-    idx = 0
-    while idx<len(posiblesSoluciones):
-        posibleSolucion = posiblesSoluciones[idx]
+    print("Lista con todas las posibles soluciones del algoritmo: \n" , posiblesSoluciones)
+    
+    #Ciclo principal donde se realiza la poda del backtraking
+    iterador = 0 
+    while iterador<len(posiblesSoluciones):
+        
+        posibleSolucion = posiblesSoluciones[iterador]
         fichasUsadas = []
         paresOcupados = []
-        solucionado =  True
-
+        solucionProbada =  True
+        
         for e in range(0,len(posibleSolucion)): 
-            substring = ""
+            
+            solucionDescartada = ""
             posicionActual : tuple = actualizarPosicion(matrix,paresOcupados,(filas,columnas))
 
             x = posicionActual[0]
@@ -79,50 +48,37 @@ def backtracking(matrix)->list:
                 posicionB:tuple = (x+1,y)
 
             else:
-                solucionado = False
-                substring = posibleSolucion[:e+1]
+                solucionProbada = False
+                solucionDescartada = posibleSolucion[:e+1]
                 break
 
             if ficha in fichasUsadas:
-                substring = posibleSolucion[:e+1]
-                solucionado = False
+                solucionDescartada = posibleSolucion[:e+1]
+                solucionProbada = False
                 break
             else:
                 fichasUsadas.append(ficha)
                 paresOcupados.append(posicionA)
                 paresOcupados.append(posicionB)
 
-        if solucionado:
+        if solucionProbada:
             soluciones.append(posibleSolucion)
-            idx+=1
+            iterador+=1
         else:
-            index = 0
-            while index<len(posiblesSoluciones):
-                elemento = posiblesSoluciones[index]
-                if elemento[:len(substring)] == substring:
+            indice = 0
+            while indice<len(posiblesSoluciones):
+                elemento = posiblesSoluciones[indice]
+                if elemento[:len(solucionDescartada)] == solucionDescartada:
                     posiblesSoluciones.remove(elemento)
                 else:
-                    index+=1
+                    indice+=1
 
     return soluciones
 
-
-
-
-
-
-def main()->None:
-    matrix = [
-        [0,2,2,2],
-        [1,1,1,0],
-        [1,0,2,0]
-    ]
-    soluciones = backtracking(matrix)
+def main():
+    soluciones = backtracking(devolverMatriz("3x4"))
     print('Soluciones: \n')
     print(soluciones)
-
-    
-    
 
 main()
 
