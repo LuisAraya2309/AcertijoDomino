@@ -1,0 +1,42 @@
+
+<html>
+    <html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/indexStyle.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    
+    <title>Elección del algoritmo </title>
+
+  </head>
+
+
+    <body>
+        <h1>Acertijo de Dominó</h1>
+        <form action = "/eleccion" method = "POST">
+            <p>Seleccione el algoritmo para la solución:</p>
+            <div>
+                <input type="radio" id="backtracking"
+                name="algoritmo" value="backtracking">
+                <label for="backtracking">Backtracking</label>
+
+                <input type="radio" id="fuerzaBruta"
+                name="algoritmo" value="fuerzaBruta">
+                <label for="fuerzaBruta">Fuerza Bruta</label>
+            </div>
+        
+            <p>Ingrese el número del set a jugar:</p>
+
+            <div>
+            <input type="text" id="set" name="set">
+            </div>
+
+            <div>
+                <button type="submit">Resolver</button>
+            </div>
+        </form>
+    </body>
+
+</html>
