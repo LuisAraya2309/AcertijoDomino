@@ -1,6 +1,6 @@
 #Libraries
 from flask import Flask,render_template,request
-
+from dominoes import *
 app = Flask(__name__)
 
 
@@ -12,11 +12,13 @@ def principal():
 @app.route('/eleccion',methods=['POST','GET'])
 def solucion():
     algoritmo = request.form['algoritmo']
-    set = request.form['set']
-    if algoritmo == 'backtracking':
-        return render_template('backtracking.html',set = set)
+    set = int(request.form['set'])
+    matriz = generarMatriz(set)
 
-    return render_template('fuerzaBruta.html',set = set)
+    if algoritmo == 'backtracking':
+        return render_template('backtracking.html',set = set,matriz = matriz)
+
+    return render_template('fuerzaBruta.html',set = set,matriz = matriz)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0",port=4000,debug=True)

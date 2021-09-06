@@ -1,0 +1,10 @@
+body,html{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 150%;
+    color: aliceblue;
+    height: 100%;
+    background-repeat: no-repeat;
+    background: url(/static/images/algoritmos.jpg) no-repeat center center fixed;
+    background-size: 100% 100%;
+}
