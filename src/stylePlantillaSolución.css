@@ -1,0 +1,129 @@
+h1{
+    font: bold 300% 'KoHo';
+    color: #fbc767 ;
+    text-align:center;
+}
+
+h2, label {
+    font: bold 100% 'KoHo';
+    color: #fbc767 ;
+}
+
+body{
+    background-image: url(Background.jpg);
+}
+input{
+    font: bold 65% 'KoHo';
+    color:whitesmoke;
+    background-color: transparent;
+    border-color: #fbc767;
+}
+
+form{
+    font: bold 300% 'KoHo';
+}
+
+textarea{
+    font: bold 50% 'KoHo';
+    color : whitesmoke;
+    background-color: transparent;
+    border-color: #fbc767;
+    resize: none;
+}
+
+* {
+    box-sizing: border-box;
+  }
+
+  .proceso {
+    width: 33.3%;
+    float: left;
+    padding: 15px;
+  }
+  
+  .informacionExtra {
+    width: 33.3%;
+    float: left;
+    padding: 15px;
+  }
+
+  .resultados {
+    width: 33.3%;
+    float: left;
+    padding: 15px;
+  }
+
+/*
+
+@mixin position($all) {
+    top: $all;
+    right: $all;
+    bottom: $all;
+    left: $all;
+}
+
+.domino {
+    width: 500px;
+    margin: auto;
+    position: relative;
+    top: 100px;
+    .left-half, .right-half {
+        box-sizing: border-box; 
+        float: left;
+        width: 250px;
+        height: 225px;
+        margin: auto;
+        border: 16px solid #222;
+        &:before {
+            content: "";
+            position: absolute;
+            @include position(-1px);
+            z-index: 1;
+            border: 1px solid white;
+            border-radius: 4px;
+        }
+    }
+    .left-half { 
+        border-right: 9px solid #222;
+        border-radius: 12px 0px 0px 12px; 
+    }
+    .right-half { 
+        border-left: 9px solid #222;
+        border-radius: 0px 12px 12px 0px; 
+    }
+    
+    .dot-container {
+        position: relative;
+        right: 25px;
+        width: 240px;
+        height: 200px;
+    }
+    .dot {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background-color: black;
+            border-radius: 50%;
+    }
+    
+    .dot-container-3 {
+        top: 25px;
+        left: 25px;
+        .dot:nth-child(2) {
+            left: 60px;
+        }
+        .dot:last-child {
+            left: 120px;
+        }
+    }
+    
+    
+    .dot-container-6 {
+        .dot {
+            float: right;
+            margin: 25px 8px;
+        }
+    }
+
+} 
+*/
