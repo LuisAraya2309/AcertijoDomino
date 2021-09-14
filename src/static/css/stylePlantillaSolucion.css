@@ -1,0 +1,54 @@
+h1{
+    font: bold 300% 'KoHo';
+    color: #fbc767 ;
+    text-align:center;
+}
+
+h2, label {
+    font: bold 100% 'KoHo';
+    color: #fbc767 ;
+}
+
+body{
+    background-image: url(Background.jpg);
+}
+input{
+    font: bold 65% 'KoHo';
+    color:whitesmoke;
+    background-color: transparent;
+    border-color: #fbc767;
+}
+
+form{
+    font: bold 300% 'KoHo';
+}
+
+textarea{
+    font: bold 50% 'KoHo';
+    color : whitesmoke;
+    background-color: transparent;
+    border-color: #fbc767;
+    resize: none;
+}
+
+* {
+    box-sizing: border-box;
+  }
+
+  .proceso {
+    width: 33.3%;
+    float: left;
+    padding: 15px;
+  }
+  
+  .informacionExtra {
+    width: 33.3%;
+    float: left;
+    padding: 15px;
+  }
+
+  .resultados {
+    width: 33.3%;
+    float: left;
+    padding: 15px;
+  }

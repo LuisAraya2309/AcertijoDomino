@@ -17,9 +17,6 @@ def backtracking(matrix):
     for i in range(0,combinaciones):
         posibleSolucion = decimalABinario(i,bitsDisponibles)
         posiblesSoluciones.append(posibleSolucion)
-    
-    print("Lista con todas las posibles soluciones del algoritmo: \n" , posiblesSoluciones)
-    
     #Ciclo principal donde se realiza la poda del backtraking
     iterador = 0 
     while iterador<len(posiblesSoluciones):
@@ -74,13 +71,6 @@ def backtracking(matrix):
                     indice+=1
 
     return soluciones
-
-def main():
-    soluciones = backtracking(devolverMatriz("3x4"))
-    print('Soluciones: \n')
-    print(soluciones)
-
-main()
 
 
 
