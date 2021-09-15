@@ -5,7 +5,7 @@ from algoritmos import *
 
 #Creacion de la app
 app = Flask(__name__)
-
+matriz = []
 #Rutas
 @app.route('/',methods=['GET'])
 def principal():
@@ -13,10 +13,15 @@ def principal():
 
 
 @app.route('/fuerzaBruta',methods=['POST','GET'])
-def solucion():
+def solucionFB():
+    global matriz
     set = int(request.form['set'])
     matriz = generarMatriz(set)
     return fuerzaBrutaG(matriz)
+
+@app.route('/backtracking',methods=['POST','GET'])
+def solucionBT():
+    return backtrackingG(matriz)
 
 
 if __name__ == '__main__':
