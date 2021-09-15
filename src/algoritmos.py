@@ -154,6 +154,7 @@ def fuerzaBrutaG(matrix):
                                 <label for="fcantidadSoluciones">Cantidad de soluciones:</label><br>
                                 <input type="text" id="fcantidadSoluciones" name="fcantidadSoluciones" readonly=»readonly» value = '''+str(combinaciones)+''' ><br>
                             </Form>
+                            <input type="text" id="set" name="set">
                         </div>
 
                         <div class = "resultados">
@@ -162,6 +163,7 @@ def fuerzaBrutaG(matrix):
                                 <textarea name="matriz" rows="7" cols="30" readonly=»readonly»>'''+matrizGrafica+'''</textarea>
                                 <h2>Ejemplo de solución:</h2>
                                 <textarea name="solucion" rows="8" cols="40" readonly=»readonly»> </textarea>
+                                <button type="submit">Siguiente</button>
                             </Form>
                         </div>
 
