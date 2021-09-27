@@ -1,129 +1,129 @@
 from funcionesAuxiliares import *
 import time
 #Algoritmos calculadores
-def fuerzaBruta(matrix)->str:
-    tiempoInicio = time.time()
-    set = len(matrix) - 1
-    filas = set+1
-    columnas = filas +1 
-    bitsDisponibles = (filas * columnas)//2
-    combinaciones = 2**(bitsDisponibles)
-    soluciones = []
+def fuerzaBruta(matrix)->str:  #Medicion Analitica:   10n^4 + 43n^2 + 5n + 17
+    tiempoInicio = time.time() # 1 + 1  = 2
+    set = len(matrix) - 1 # 1 + 1 = 2
+    filas = set + 1 # 1 + 1 = 2 
+    columnas = filas +1 # 1 + 1 = 2 
+    bitsDisponibles = (filas * columnas)//2 # 1 + 1 + 1 = 2 
+    combinaciones = 2**(bitsDisponibles) # 1 + 1 = 2
+    soluciones = [] # 1
 
-    for i in range(0,combinaciones):
-        posibleSolucion = decimalABinario(i,bitsDisponibles)
-        fichasUsadas = []
-        paresOcupados = []
-        solucionado =  True
+    for i in range(0,combinaciones): # 2 -> Resultado del ciclo: 10n^4 + 43n^2 + 5n
+        posibleSolucion = decimalABinario(i,bitsDisponibles) # 1 + 10n + 9 = 10n + 10
+        fichasUsadas = [] # 1
+        paresOcupados = [] # 1
+        solucionado =  True # 1
 
-        for e in range(0,len(posibleSolucion)):
+        for e in range(0,len(posibleSolucion)): # 1 + 1 + 1 = 3  -> Resultado del ciclo: 10n^3 + 33n 
             #Actualiza la posicion
-            posicionActual : tuple = actualizarPosicion(matrix,paresOcupados,(filas,columnas))
-            if posicionActual == (-1,-1):
-                solucionado = False
+            posicionActual : tuple = actualizarPosicion(matrix,paresOcupados,(filas,columnas)) # 1 + 10n^2 + 5 = 10n^2 +6
+            if posicionActual == (-1,-1): # 1
+                solucionado = False # 1
                 break
 
-            x = posicionActual[0]
-            y = posicionActual[1]
+            x = posicionActual[0] # 1 + 1 = 2
+            y = posicionActual[1] # 1 + 1 = 2
             
-            if posibleSolucion[e] == "0" and y+1<columnas:
-                ficha:tuple = (matrix[x][y],matrix[x][y+1])  
-                posicionA:tuple = (x,y)                      
-                posicionB:tuple = (x,y+1)                    
-            elif posibleSolucion[e] == "1" and x+1<filas:
-                ficha:tuple = (matrix[x][y],matrix[x+1][y])    
-                posicionA:tuple = (x,y)                        
-                posicionB:tuple = (x+1,y)     
+            if posibleSolucion[e] == "0" and y+1<columnas: # 1 + 1 + 1 + 1 + 1 = 5
+                ficha:tuple = (matrix[x][y],matrix[x][y+1]) # 1 + 1 + 1 + 1 + 1 + 1 = 6           Se utiliza el primer if para la medición
+                posicionA:tuple = (x,y)   # 1                   
+                posicionB:tuple = (x,y+1) # 1 + 1  = 2               
+            elif posibleSolucion[e] == "1" and x+1<filas: # 1 + 1 + 1 + 1 + 1 = 5
+                ficha:tuple = (matrix[x][y],matrix[x+1][y]) # 1 + 1 + 1 + 1 + 1 + 1 = 6     
+                posicionA:tuple = (x,y)  # 1                      
+                posicionB:tuple = (x+1,y) # 1 + 1  = 2 
             else:
                 #Error de rango
-                solucionado = False
+                solucionado = False # 1
                 break
 
-            if ficha in fichasUsadas:
+            if ficha in fichasUsadas: # 1
                 #Error de ficha repetida
-                solucionado = False
+                solucionado = False #1
                 break
             else:
-                fichasUsadas.append(ficha)
-                paresOcupados.append(posicionA)
-                paresOcupados.append(posicionB)
+                fichasUsadas.append(ficha) # 1
+                paresOcupados.append(posicionA) # 1
+                paresOcupados.append(posicionB) # 1
 
         #Agrega a la lista de soluciones
         if solucionado:
-            soluciones.append(posibleSolucion)
-    tiempoFinal = time.time()
-    return str(tiempoFinal - tiempoInicio)
+            soluciones.append(posibleSolucion) # 1
+    tiempoFinal = time.time() # 2
+    return str(tiempoFinal - tiempoInicio) # 1 + 1 = 2
 
 
-def backtracking(matrix)->str:
-    tiempoInicio = time.time()
+def backtracking(matrix)->str: #Medicion Analitica:  10n^4 + 43n^2 + 29n + 22
+    tiempoInicio = time.time() # 1 + 1 = 2
     # Instanciamiento de variables
-    set = len(matrix) - 1
-    filas = set+1
-    columnas = filas +1 
-    bitsDisponibles = (filas * columnas)//2
-    combinaciones = 2**(bitsDisponibles)
-    soluciones = []
+    set = len(matrix) - 1 # 1 + 1 + 1 = 3
+    filas = set+1 # 1 + 1 = 2
+    columnas = filas + 1 # 1 + 1 = 2 
+    bitsDisponibles = (filas * columnas)//2 # 1 + 1 + 1 = 3 
+    combinaciones = 2**(bitsDisponibles) # 1 + 1 = 2 
+    soluciones = [] # 1
     
-    posiblesSoluciones = []
+    posiblesSoluciones = [] # 1
     #Se llena la lista con las posibles soluciones del algoritmo
-    for i in range(0,combinaciones):
-        posibleSolucion = decimalABinario(i,bitsDisponibles)
-        posiblesSoluciones.append(posibleSolucion)
+    for i in range(0,combinaciones): # 1 + 1 = 2 -> Resultado del ciclo: 10n^2 + 13n
+        posibleSolucion = decimalABinario(i,bitsDisponibles) # 1 + 10n + 9 = 10n + 10
+        posiblesSoluciones.append(posibleSolucion) # 1
     #Ciclo principal donde se realiza la poda del backtraking
-    iterador = 0 
-    while iterador<len(posiblesSoluciones):
+    iterador = 0 # 1
+    while iterador<len(posiblesSoluciones): # 1 + 1 = 2
         
-        posibleSolucion = posiblesSoluciones[iterador]
-        fichasUsadas = []
-        paresOcupados = []
-        solucionProbada =  True
+        posibleSolucion = posiblesSoluciones[iterador] # 1 + 1 = 2
+        fichasUsadas = [] # 1
+        paresOcupados = [] # 1
+        solucionProbada =  True # 1
         
-        for e in range(0,len(posibleSolucion)): 
+        for e in range(0,len(posibleSolucion)): # 1 + 1 + 1 = 3
             
-            solucionDescartada = ""
-            posicionActual : tuple = actualizarPosicion(matrix,paresOcupados,(filas,columnas))
+            solucionDescartada = "" # 1
+            posicionActual : tuple = actualizarPosicion(matrix,paresOcupados,(filas,columnas)) # 1 + 10n^2 + 5 = 10n^2 +6
 
-            x = posicionActual[0]
-            y = posicionActual[1]
+            x = posicionActual[0] # 1 + 1 = 2
+            y = posicionActual[1] # 1 + 1 = 2
 
-            if posibleSolucion[e] == "0" and y+1<columnas:
-                ficha:tuple = (matrix[x][y],matrix[x][y+1])  
-                posicionA:tuple = (x,y)                      
-                posicionB:tuple = (x,y+1)
+            if posibleSolucion[e] == "0" and y+1<columnas: # 1 + 1 + 1 + 1 + 1 = 5          Se utiliza el primer if para la medición
+                ficha:tuple = (matrix[x][y],matrix[x][y+1]) # 1 + 1 + 1 + 1 + 1 + 1 = 6    
+                posicionA:tuple = (x,y) # 1              
+                posicionB:tuple = (x,y+1) # 1 + 1  = 2   
 
-            elif posibleSolucion[e] == "1" and x+1<filas: 
-                ficha:tuple = (matrix[x][y],matrix[x+1][y])    
-                posicionA:tuple = (x,y)                        
-                posicionB:tuple = (x+1,y)
+            elif posibleSolucion[e] == "1" and x+1<filas:  # 1 + 1 + 1 + 1 + 1 = 5
+                ficha:tuple = (matrix[x][y],matrix[x+1][y]) # 1 + 1 + 1 + 1 + 1 + 1 = 6       
+                posicionA:tuple = (x,y) # 1                             
+                posicionB:tuple = (x+1,y) # 1 + 1  = 2   
 
             else:
-                solucionProbada = False
-                solucionDescartada = posibleSolucion[:e+1]
+                solucionProbada = False # 1 
+                solucionDescartada = posibleSolucion[:e+1] # 1 + 1 + 1 = 3   
                 break
 
-            if ficha in fichasUsadas:
-                solucionDescartada = posibleSolucion[:e+1]
-                solucionProbada = False
+            if ficha in fichasUsadas: # 1 
+                solucionDescartada = posibleSolucion[:e+1] # 1 + 1 + 1 = 3   
+                solucionProbada = False # 1 
                 break
             else:
-                fichasUsadas.append(ficha)
-                paresOcupados.append(posicionA)
-                paresOcupados.append(posicionB)
+                fichasUsadas.append(ficha) # 1 
+                paresOcupados.append(posicionA) # 1 
+                paresOcupados.append(posicionB) # 1 
 
         if solucionProbada:
-            soluciones.append(posibleSolucion)
-            iterador+=1
+            soluciones.append(posibleSolucion) # 1 
+            iterador+=1 # 1 + 1 = 2 
         else:
-            indice = 0
-            while indice<len(posiblesSoluciones):
-                elemento = posiblesSoluciones[indice]
-                if elemento[:len(solucionDescartada)] == solucionDescartada:
-                    posiblesSoluciones.remove(elemento)
+            indice = 0 # 1
+            while indice<len(posiblesSoluciones): # 1 + 1 = 2
+                elemento = posiblesSoluciones[indice]  # 1 + 1 = 2
+                if elemento[:len(solucionDescartada)] == solucionDescartada:  # 1 + 1 + 1 = 3
+                    posiblesSoluciones.remove(elemento) # 1
                 else:
-                    indice+=1
-    tiempoFinal = time.time()
-    return str(tiempoFinal-tiempoInicio)
+                    indice+=1 # 1 + 1
+    tiempoFinal = time.time() # 1 + 1 = 2
+    return str(tiempoFinal-tiempoInicio) # 1 + 1 + 1 = 3
 
 
 

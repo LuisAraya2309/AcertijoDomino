@@ -1,35 +1,35 @@
 
 
-def rellenarBits(numero:str,bitsDisponibles:int)->str:
-    while len(numero)!=bitsDisponibles:
-        numero = "0" + numero
-    return numero
+def rellenarBits(numero:str,bitsDisponibles:int)->str:  # Medicion analitica: 4n + 1
+    while len(numero)!=bitsDisponibles: # 1 + 1 = 2  -> Resultado del ciclo 4n
+        numero = "0" + numero # 1 + 1 = 2
+    return numero # 1
 
-def decimalABinario(numeroDecimal:int,bitsDisponibles:int)->str:
-    numeroBinario = 0
-    multiplicador = 1
+def decimalABinario(numeroDecimal:int,bitsDisponibles:int)->str: # Medicion analitica: 10n + 9
+    numeroBinario = 0 # 1
+    multiplicador = 1 # 1
 
-    while numeroDecimal != 0:
-        numeroBinario = numeroBinario + numeroDecimal % 2 * multiplicador
-        numeroDecimal //= 2
-        multiplicador *= 10
-    numeroBinario = str(numeroBinario)
+    while numeroDecimal != 0: # 1 + 1 = 2 -> Resultado del ciclo 10n
+        numeroBinario = numeroBinario + numeroDecimal % 2 * multiplicador # 1 + 1 + 1 + 1 = 4 
+        numeroDecimal //= 2 # 1 + 1 = 2 
+        multiplicador *= 10 # 1 + 1 = 2
+    numeroBinario = str(numeroBinario) # 1 + 1 = 2
     
-    if len(numeroBinario) < bitsDisponibles:
-        return rellenarBits(numeroBinario,bitsDisponibles)
+    if len(numeroBinario) < bitsDisponibles: # 1 + 1 = 2
+        return rellenarBits(numeroBinario,bitsDisponibles) # 1 + 1 = 2
 
-    return numeroBinario
+    return numeroBinario # 1
 
-def actualizarPosicion(matrix,paresOcupados,dimensiones)->tuple:  
-    filas = dimensiones[0]
-    columnas = dimensiones[1]
+def actualizarPosicion(matrix,paresOcupados,dimensiones)->tuple:  # Medicion analitica: 10n^2 + 5
+    filas = dimensiones[0] # 1 + 1 = 2 
+    columnas = dimensiones[1] # 1 + 1 = 2
 
-    for f in range(0,filas):
-        for c in range(0,columnas):
-            posicion : tuple = (f,c)            
-            if posicion not in paresOcupados:
-                return posicion
-    return (-1,-1)
+    for f in range(0,filas): # 2 -> Resultado del ciclo 2n*5n = 10n^2
+        for c in range(0,columnas): # 2 -> Resultado del ciclo 5n
+            posicion : tuple = (f,c) # 1     
+            if posicion not in paresOcupados: # 1 
+                return posicion # 1
+    return (-1,-1) # 1
 
 def devolverMatriz(tamañoMatriz):
     if tamañoMatriz == "2x3":
