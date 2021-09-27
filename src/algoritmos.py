@@ -281,8 +281,10 @@ def backtrackingG(matrix):
         posibleSolucion = decimalABinario(i,bitsDisponibles)
         posiblesSoluciones.append(posibleSolucion)
     #Ciclo principal donde se realiza la poda del backtraking
-    iterador = 0 
+    iterador = 0
+    intentos = 0 
     while iterador<len(posiblesSoluciones):
+        intentos+=1
         posibleSolucion = posiblesSoluciones[iterador]
         proceso:str ="---------------------" "\n" + "Combinación: " + posibleSolucion + ". \nPasos: \n"
         fichasUsadas = []
@@ -357,7 +359,7 @@ def backtrackingG(matrix):
                                 <input type="text" id="fduracion" name="fduracion" readonly=»readonly» value ='''+ backtracking(matrix) +'''><br>
 
                                 <label for="fintentosRealizados">Intentos realizados:</label><br>
-                                <input type="text" id="fintentosRealizados" name="fintentosRealizados" readonly=»readonly» value ='''+str(iterador)+''' ><br>
+                                <input type="text" id="fintentosRealizados" name="fintentosRealizados" readonly=»readonly» value ='''+str(intentos)+''' ><br>
                                 
                                 <label for="fcantidadSoluciones">Cantidad de soluciones:</label><br>
                                 <input type="text" id="fcantidadSoluciones" name="fcantidadSoluciones" readonly=»readonly» value = '''+str(len(soluciones))+''' ><br>
@@ -371,7 +373,6 @@ def backtrackingG(matrix):
                                 <textarea name="matriz" rows="7" cols="30" readonly=»readonly»>'''+matrizGrafica+'''</textarea>
                                 <h2>Ejemplo de solución:</h2>
                                 <textarea name="solucion" rows="8" cols="40" readonly=»readonly»> </textarea>
-                                <button type="submit">Siguiente</button>
                             </form>
                         </div>
 
