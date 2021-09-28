@@ -1,5 +1,7 @@
 from funcionesAuxiliares import *
 import time
+from os import remove
+import random
 #Algoritmos calculadores
 def fuerzaBruta(matrix)->str:  #Medicion Analitica:   10n^4 + 43n^2 + 5n + 17
     tiempoInicio = time.time() # 1 + 1  = 2
@@ -9,7 +11,7 @@ def fuerzaBruta(matrix)->str:  #Medicion Analitica:   10n^4 + 43n^2 + 5n + 17
     bitsDisponibles = (filas * columnas)//2 # 1 + 1 + 1 = 2 
     combinaciones = 2**(bitsDisponibles) # 1 + 1 = 2
     soluciones = [] # 1
-
+    print(combinaciones)
     for i in range(0,combinaciones): # 2 -> Resultado del ciclo: 10n^4 + 43n^2 + 5n
         posibleSolucion = decimalABinario(i,bitsDisponibles) # 1 + 10n + 9 = 10n + 10
         fichasUsadas = [] # 1
@@ -129,6 +131,13 @@ def backtracking(matrix)->str: #Medicion Analitica:  10n^4 + 43n^2 + 29n + 22
 
 def fuerzaBrutaG(matrix):
     #Inicio del html
+    tiempoFinal = 0.0
+    try:
+        remove('procesoFuerzaBruta.txt')
+        archivo = open('procesoFuerzaBruta.txt','w')
+    except:
+        archivo = open('procesoFuerzaBruta.txt','w')
+
     matrizGrafica =""
     for fila in matrix:
         matrizGrafica+="\n" + str(fila)
@@ -150,12 +159,14 @@ def fuerzaBrutaG(matrix):
                                 <h2>Proceso:</h2>
                                 <textarea name="proceso" rows="20" cols="30" readonly=»readonly»>
                '''
+    inicio = time.time()
     set = len(matrix) - 1
     filas = set+1
     columnas = filas +1 
     bitsDisponibles = (filas * columnas)//2
     combinaciones = 2**(bitsDisponibles)
     soluciones = []
+    solucionesGraficas = []
 
     for i in range(0,combinaciones):
         posibleSolucion = decimalABinario(i,bitsDisponibles)
@@ -164,6 +175,8 @@ def fuerzaBrutaG(matrix):
         paresOcupados = []
         solucionado =  True
 
+        idFicha = 0
+        solucionGrafica = matrix
         for e in range(0,len(posibleSolucion)):
             proceso+= ("#" +str(e) + " ")
             #Actualiza la posicion
@@ -201,14 +214,25 @@ def fuerzaBrutaG(matrix):
                 fichasUsadas.append(ficha)
                 paresOcupados.append(posicionA)
                 paresOcupados.append(posicionB)
-        docHTML+=proceso
+                solucionGrafica[posicionA[0]][posicionA[1]] = idFicha
+                solucionGrafica[posicionB[0]][posicionB[1]] = idFicha
+            idFicha+=1
+        if i<=99:
+            docHTML+=proceso
+        else:
+            archivo.write(proceso + "\n")
         #Agrega a la lista de soluciones
         if solucionado:
             soluciones.append(posibleSolucion)
+            representacion = ""
+            for fila in solucionGrafica:
+                representacion+="\n" + str(fila)
+            solucionesGraficas.append(representacion)
             docHTML+= "#####Solucionado##### \n"
         
 
     #Cierre del html
+    final = time.time()
     docHTML+='''
                 </textarea>
                             </Form>
@@ -217,7 +241,7 @@ def fuerzaBrutaG(matrix):
                         <div class = "informacionExtra">
                             <Form >
                                 <label for="fduracion">Duración:</label><br>
-                                <input type="text" id="fduracion" name="fduracion" readonly=»readonly» value ='''+ fuerzaBruta(matrix) +'''><br>
+                                <input type="text" id="fduracion" name="fduracion" readonly=»readonly» value ='''+str(final-inicio)+'''><br>
 
                                 <label for="fintentosRealizados">Intentos realizados:</label><br>
                                 <input type="text" id="fintentosRealizados" name="fintentosRealizados" readonly=»readonly» value ='''+str(combinaciones)+''' ><br>
@@ -233,7 +257,8 @@ def fuerzaBrutaG(matrix):
                                 <h2>Matriz:</h2>
                                 <textarea name="matriz" rows="7" cols="30" readonly=»readonly»>'''+matrizGrafica+'''</textarea>
                                 <h2>Ejemplo de solución:</h2>
-                                <textarea name="solucion" rows="8" cols="40" readonly=»readonly»> </textarea>
+                                <textarea name="solucion" rows="8" cols="40" readonly=»readonly»> '''+str(solucionesGraficas[random.randint(0,len(solucionesGraficas)-1)])+'''
+                                </textarea>
                                 <button type="submit">Siguiente</button>
                             </form>
                         </div>
@@ -241,12 +266,20 @@ def fuerzaBrutaG(matrix):
                     </body>
                 </html>
              '''
-
+    archivo.close()
     return docHTML
 
 def backtrackingG(matrix):
     #Inicio del html
-    matrizGrafica =""
+    tiempoFinal = 0.0
+    try:
+        remove('procesoBacktracking.txt')
+        archivo = open('procesoBacktracking.txt','w')
+    except:
+        archivo = open('procesoBacktracking.txt','w')
+    
+    matrizGrafica ="" 
+
     for fila in matrix:
         matrizGrafica+="\n" + str(fila)
     docHTML = '''
@@ -268,13 +301,14 @@ def backtrackingG(matrix):
                                 <textarea name="proceso" rows="20" cols="30" readonly=»readonly»>
                '''
     # Instanciamiento de variables
+    inicio = time.time()
     set = len(matrix) - 1
     filas = set+1
     columnas = filas +1 
     bitsDisponibles = (filas * columnas)//2
     combinaciones = 2**(bitsDisponibles)
     soluciones = []
-    
+    solucionesGraficas = []
     posiblesSoluciones = []
     #Se llena la lista con las posibles soluciones del algoritmo
     for i in range(0,combinaciones):
@@ -290,7 +324,9 @@ def backtrackingG(matrix):
         fichasUsadas = []
         paresOcupados = []
         solucionProbada =  True
-        
+        idFicha = 0
+        solucionGrafica = matrix
+
         for e in range(0,len(posibleSolucion)): 
             proceso+= ("#" +str(e) + " ")
             solucionDescartada = ""
@@ -328,13 +364,25 @@ def backtrackingG(matrix):
                 fichasUsadas.append(ficha)
                 paresOcupados.append(posicionA)
                 paresOcupados.append(posicionB)
+                solucionGrafica[posicionA[0]][posicionA[1]] = idFicha
+                solucionGrafica[posicionB[0]][posicionB[1]] = idFicha
+            idFicha+=1
 
-        docHTML+=proceso
+        if intentos<=50:
+            docHTML+=proceso
+        else:
+            archivo.write(proceso+"\n")
 
         if solucionProbada:
             soluciones.append(posibleSolucion)
             docHTML+= "#####Solucionado##### \n"
             iterador+=1
+            soluciones.append(posibleSolucion)
+            representacion = ""
+            for fila in solucionGrafica:
+                representacion+="\n" + str(fila)
+            solucionesGraficas.append(representacion)
+            docHTML+= "#####Solucionado##### \n"
         else:
             proceso+="\n Realizando Poda \n Subcadena inválida: "+solucionDescartada + "\n"
             indice = 0
@@ -348,6 +396,7 @@ def backtrackingG(matrix):
             docHTML+=proceso
     docHTML+=proceso
     #Cierre del html
+    final = time.time()
     docHTML+='''
                 </textarea>
                             </Form>
@@ -356,7 +405,7 @@ def backtrackingG(matrix):
                         <div class = "informacionExtra">
                             <Form >
                                 <label for="fduracion">Duración:</label><br>
-                                <input type="text" id="fduracion" name="fduracion" readonly=»readonly» value ='''+ backtracking(matrix) +'''><br>
+                                <input type="text" id="fduracion" name="fduracion" readonly=»readonly» value ='''+str(final-inicio)+'''><br>
 
                                 <label for="fintentosRealizados">Intentos realizados:</label><br>
                                 <input type="text" id="fintentosRealizados" name="fintentosRealizados" readonly=»readonly» value ='''+str(intentos)+''' ><br>
@@ -372,7 +421,7 @@ def backtrackingG(matrix):
                                 <h2>Matriz:</h2>
                                 <textarea name="matriz" rows="7" cols="30" readonly=»readonly»>'''+matrizGrafica+'''</textarea>
                                 <h2>Ejemplo de solución:</h2>
-                                <textarea name="solucion" rows="8" cols="40" readonly=»readonly»> </textarea>
+                                <textarea name="solucion" rows="8" cols="40" readonly=»readonly»>'''+ str(solucionesGraficas[random.randint(0,len(solucionesGraficas)-1)])+  ''' </textarea>
                             </form>
                         </div>
 
@@ -380,5 +429,5 @@ def backtrackingG(matrix):
                 </html>
              '''
         
-    
+    archivo.close()
     return docHTML
